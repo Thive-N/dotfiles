@@ -1,3 +1,0 @@
-[submodule ".config/polybar"]
-	path = .config/polybar
-	url = https://github.com/polybar/polybar.git
