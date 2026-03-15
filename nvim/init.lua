@@ -264,7 +264,7 @@ require('lazy').setup({
     cmd = { 'Typr', 'TyprStats' },
   },
   { 'norcalli/nvim-colorizer.lua', opts = {}, config = function() require('colorizer').setup() end },
-
+  { 'vyfor/cord.nvim' },
   {
     'akinsho/toggleterm.nvim',
     version = '*',
