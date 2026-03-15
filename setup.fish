@@ -30,7 +30,7 @@ set CONFIG_DIR "$HOME/.config"
 set TARGETS hypr quickshell nvim
 
 # Required packages
-set PACKAGES hyprland hyprpaper quickshell neovim
+set PACKAGES hyprland hyprpaper quickshell neovim jq
 
 
 echo ""
