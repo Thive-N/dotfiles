@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "version": "1.0",
+  "name": "FirefoxTheme",
+  "theme": {
+    "images": {},
+    "properties": {},
+    "colors": {
+      "toolbar": "rgb(68, 75, 106)",
+      "toolbar_text": "rgb(255, 255, 255)",
+      "frame": "rgb(26, 27, 38)",
+      "tab_background_text": "rgb(215, 226, 239)",
+      "toolbar_field": "rgb(54, 58, 89)",
+      "toolbar_field_text": "rgb(255, 255, 255)",
+      "tab_line": "rgb(173, 142, 230)",
+      "popup": "rgb(26, 27, 38)",
+      "popup_text": "rgb(215, 226, 239)",
+      "tab_loading": "rgb(173, 142, 230)"
+    }
+  }
+}

@@ -85,6 +85,13 @@ for folder in $TARGETS
     ln -s $SOURCE $DEST
 end
 
+# Zip firefox theme
+
+echo ""
+echo "Creating firefox theme..."
+
+zip -r ./FireFox/theme.zip FireFox/manifest.json
+
 echo ""
 echo "Setup complete!"
 echo ""
