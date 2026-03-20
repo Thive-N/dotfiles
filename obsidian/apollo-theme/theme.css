@@ -1,0 +1,137 @@
+:root {
+    --col-bg: #1a1b26;
+    --col-fg: #a9b1d6;
+    --col-muted: #444b6a;
+    --col-cyan: #0db9d7;
+    --col-purple: #ad8ee6;
+    --col-red: #f7768e;
+    --col-yellow: #e0af68;
+    --col-blue: #7aa2f7;
+
+    --font-family: "JetBrainsMono Nerd Font", monospace;
+    --font-size: 14px;
+}
+
+
+.workspace,
+.workspace-split,
+.workspace-leaf,
+.view-content {
+    background-color: var(--col-bg) !important;
+    color: var(--col-fg);
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+}
+
+
+.cm-editor {
+    background-color: var(--col-bg);
+    color: var(--col-fg);
+}
+
+.cm-content {
+    caret-color: var(--col-cyan);
+}
+
+
+h1 {
+    color: var(--col-purple);
+}
+
+h2 {
+    color: var(--col-blue);
+}
+
+h3 {
+    color: var(--col-cyan);
+}
+
+h4 {
+    color: var(--col-yellow);
+}
+
+h5 {
+    color: var(--col-red);
+}
+
+
+a {
+    color: var(--col-cyan);
+}
+
+a:hover {
+    color: var(--col-blue);
+}
+
+
+.workspace-leaf.mod-active .view-header {
+    background-color: var(--col-bg);
+    border-bottom: 1px solid var(--col-muted);
+}
+
+.nav-file-title,
+.nav-folder-title {
+    color: var(--col-fg);
+}
+
+.nav-file-title:hover {
+    color: var(--col-cyan);
+}
+
+
+.nav-file-title.is-active {
+    color: var(--col-purple);
+    font-weight: bold;
+}
+
+
+code {
+    background-color: #16161e;
+    color: var(--col-yellow);
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+pre {
+    background-color: #16161e;
+    border: 1px solid var(--col-muted);
+    border-radius: 6px;
+}
+
+
+blockquote {
+    border-left: 3px solid var(--col-blue);
+    color: var(--col-muted);
+}
+
+
+::selection {
+    background: var(--col-muted);
+}
+
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--col-muted);
+    border-radius: 4px;
+}
+
+
+.status-bar {
+    background-color: var(--col-bg);
+    border-top: 1px solid var(--col-muted);
+    color: var(--col-muted);
+}
+
+
+.workspace-tab-header {
+    background-color: var(--col-bg);
+    color: var(--col-muted);
+}
+
+.workspace-tab-header.is-active {
+    color: var(--col-cyan);
+}
