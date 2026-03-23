@@ -28,9 +28,9 @@ set CONFIG_DIR "$HOME/.config"
 
 # Folders to symlink to config
 set TARGETS hypr quickshell nvim
-
 # Required packages
-set PACKAGES hyprland hyprpaper quickshell neovim jq
+set PACKAGES hyprland hyprpaper quickshell neovim jq kitty
+set CUSTOM_PACKAGES obsidian code
 
 
 echo ""
@@ -91,6 +91,18 @@ echo ""
 echo "Creating firefox theme..."
 
 zip -r ./FireFox/theme.zip FireFox/manifest.json
+
+
+read -l -P "Install extra packages? (y/N): " custom_package_choice
+
+# Backing up
+if test "$custom_package_choice" = "y" -o "$custom_package_choice" = "Y"
+    echo ""
+    echo "Installing custom packages..."
+    sudo pacman -S --needed $CUSTOM_PACKAGES
+else
+    echo "Skipping custom packages"
+end
 
 echo ""
 echo "Setup complete!"
