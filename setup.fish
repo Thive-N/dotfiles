@@ -28,9 +28,13 @@ set CONFIG_DIR "$HOME/.config"
 
 # Folders to symlink to config
 set TARGETS hypr quickshell nvim
+
 # Required packages
 set PACKAGES hyprland hyprpaper quickshell neovim jq kitty
-set CUSTOM_PACKAGES obsidian code spotify-launcher
+
+#custom packages
+set CUSTOM_PACKAGES obsidian code
+set CUSTOM_PACKAGES_YAY spotify spicetify-cli
 
 
 echo ""
@@ -100,9 +104,16 @@ if test "$custom_package_choice" = "y" -o "$custom_package_choice" = "Y"
     echo ""
     echo "Installing custom packages..."
     sudo pacman -S --needed $CUSTOM_PACKAGES
+    yay -S $CUSTOM_PACKAGES_YAY
+
+    spicetify config spotify_path "$HOME/.local/share/spotify-launcher/install/usr/share/spotify"
+
+
 else
     echo "Skipping custom packages"
 end
+
+
 
 echo ""
 echo "Setup complete!"
