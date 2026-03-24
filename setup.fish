@@ -30,7 +30,7 @@ set CONFIG_DIR "$HOME/.config"
 set TARGETS hypr quickshell nvim
 # Required packages
 set PACKAGES hyprland hyprpaper quickshell neovim jq kitty
-set CUSTOM_PACKAGES obsidian code
+set CUSTOM_PACKAGES obsidian code spotify-launcher
 
 
 echo ""
