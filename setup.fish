@@ -106,8 +106,11 @@ if test "$custom_package_choice" = "y" -o "$custom_package_choice" = "Y"
     sudo pacman -S --needed $CUSTOM_PACKAGES
     yay -S $CUSTOM_PACKAGES_YAY
 
-    spicetify config spotify_path "$HOME/.local/share/spotify-launcher/install/usr/share/spotify"
+    sudo chmod a+wr /opt/spotify
+    sudo chmod a+wr /opt/spotify/Apps -R
 
+    # comfy theme
+    curl -fsSL https://raw.githubusercontent.com/NYRI4/Comfy-spicetify/main/install.sh | sh
 
 else
     echo "Skipping custom packages"
