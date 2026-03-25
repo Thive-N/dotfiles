@@ -50,6 +50,7 @@ The script creates symlinks like:
 ~/.config/hypr        → <repo>/hypr
 ~/.config/quickshell  → <repo>/quickshell
 ~/.config/nvim        → <repo>/nvim
+...
 ```
 
 This keeps your system configs in sync with the repository.
