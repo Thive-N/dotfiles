@@ -27,7 +27,7 @@ set DOTFILES_DIR (pwd)
 set CONFIG_DIR "$HOME/.config"
 
 # Folders to symlink to config
-set TARGETS hypr quickshell nvim
+set TARGETS hypr quickshell nvim kitty fish
 
 # Required packages
 set PACKAGES hyprland hyprpaper quickshell neovim jq kitty
