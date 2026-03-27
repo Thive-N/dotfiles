@@ -17,61 +17,90 @@ echo "▀▀▀▀▀•  ▀█▄▀▪ ▀▀▀ ▀▀▀ ▀▀▀.▀▀�
 #        )_/
 #
 # =====================================
-
 # Dotfiles Setup Script
-
 # =====================================
 
+# ----------------------------
+# Dry run mode
+# ----------------------------
+set DRY_RUN 0
+
+function run_or_print
+    if test $DRY_RUN -eq 1
+        echo "[DRY RUN] $argv"
+    else
+        eval $argv
+    end
+end
+
+read -l -P "Run in DRY-RUN mode? (y/N): " dry_choice
+if test (string lower $dry_choice) = "y"
+    set DRY_RUN 1
+    echo "Running in DRY-RUN mode (no changes will be made)"
+else
+    set DRY_RUN 0
+end
+
+# ----------------------------
 # Directories
+# ----------------------------
 set DOTFILES_DIR (pwd)
 set CONFIG_DIR "$HOME/.config"
 
-# Folders to symlink to config
+# Ensure config dir exists
+run_or_print mkdir -p $CONFIG_DIR
+
+# ----------------------------
+# Targets
+# ----------------------------
 set TARGETS hypr quickshell nvim kitty fish
 
-# Required packages
-set PACKAGES hyprland hyprpaper quickshell neovim jq kitty
-
-#custom packages
-set CUSTOM_PACKAGES obsidian code
-set CUSTOM_PACKAGES_YAY spotify spicetify-cli
-
+# ----------------------------
+# Packages
+# ----------------------------
+set PACMAN_PACKAGES hyprland hyprpaper quickshell neovim jq kitty obsidian code
+set AUR_PACKAGES spotify spicetify-cli
 
 echo ""
 echo "Dotfiles directory: $DOTFILES_DIR"
 echo "Config directory: $CONFIG_DIR"
 echo ""
 
-
-# Ask for backup
+# ----------------------------
+# Backup prompt
+# ----------------------------
 read -l -P "Backup existing configs in ~/.config? (y/N): " backup_choice
 
-
-# Backing up
-if test "$backup_choice" = "y" -o "$backup_choice" = "Y"
+if test (string lower $backup_choice) = "y"
     set BACKUP_DIR "$HOME/.config-backup-"(date +%s)
     echo "Creating backup at $BACKUP_DIR"
-    mkdir -p $BACKUP_DIR
+    run_or_print mkdir -p $BACKUP_DIR
 
     for folder in $TARGETS
         if test -e "$CONFIG_DIR/$folder"
             echo "Backing up $folder"
-            mv "$CONFIG_DIR/$folder" "$BACKUP_DIR/"
+            run_or_print mv "$CONFIG_DIR/$folder" "$BACKUP_DIR/"
         end
     end
 else
     echo "Skipping backups"
 end
 
-
+# ----------------------------
 # Install packages
+# ----------------------------
 echo ""
 echo "Installing required packages..."
 
-sudo pacman -S --needed $PACKAGES
+if type -q pacman
+    run_or_print sudo pacman -S --needed $PACMAN_PACKAGES
+else
+    echo "pacman not found - skipping system packages"
+end
 
-# Create symlinks
-
+# ----------------------------
+# Symlinks
+# ----------------------------
 echo ""
 echo "Creating symlinks..."
 
@@ -79,46 +108,52 @@ for folder in $TARGETS
     set SOURCE "$DOTFILES_DIR/$folder"
     set DEST "$CONFIG_DIR/$folder"
 
+    if not test -e $SOURCE
+        echo "WARNING: missing source $SOURCE"
+        continue
+    end
 
-    if test -e $DEST
-        echo "Removing existing $DEST"
-        rm -rf $DEST
+    if test -e $DEST; and not test -L $DEST
+        echo "Removing non-symlink $DEST"
+        run_or_print rm -rf $DEST
     end
 
     echo "Linking $SOURCE -> $DEST"
-    ln -s $SOURCE $DEST
+    run_or_print ln -sfn $SOURCE $DEST
 end
 
-# Zip firefox theme
-
+# ----------------------------
+# Firefox theme
+# ----------------------------
 echo ""
 echo "Creating firefox theme..."
 
-zip -r ./FireFox/theme.zip FireFox/manifest.json
+run_or_print mkdir -p FireFox
+run_or_print zip -r ./FireFox/theme.zip FireFox/manifest.json
 
+# ----------------------------
+# Extra packages
+# ----------------------------
+read -l -P "Install extra packages? (y/N): " custom_choice
 
-read -l -P "Install extra packages? (y/N): " custom_package_choice
-
-# Backing up
-if test "$custom_package_choice" = "y" -o "$custom_package_choice" = "Y"
+if test (string lower $custom_choice) = "y"
     echo ""
-    echo "Installing custom packages..."
-    sudo pacman -S --needed $CUSTOM_PACKAGES
-    yay -S $CUSTOM_PACKAGES_YAY
+    echo "Installing AUR + extra packages..."
 
-    sudo chmod a+wr /opt/spotify
-    sudo chmod a+wr /opt/spotify/Apps -R
+    if type -q yay
+        run_or_print yay -S $AUR_PACKAGES
+    else
+        echo "yay not installed, skipping AUR packages"
+    end
 
-    # comfy theme
-    curl -fsSL https://raw.githubusercontent.com/NYRI4/Comfy-spicetify/main/install.sh | sh
+    run_or_print sudo chmod a+wr /opt/spotify
+    run_or_print sudo chmod a+wr /opt/spotify/Apps -R
 
+    run_or_print curl -fsSL https://raw.githubusercontent.com/NYRI4/Comfy-spicetify/main/install.sh | sh
 else
     echo "Skipping custom packages"
 end
 
-
-
 echo ""
 echo "Setup complete!"
 echo ""
-
