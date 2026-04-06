@@ -132,6 +132,15 @@ run_or_print mkdir -p FireFox
 run_or_print zip -r ./FireFox/theme.zip FireFox/manifest.json
 
 # ----------------------------
+# Task List
+# ----------------------------
+
+git clone https://github.com/Thive-N/todo.git
+pushd todo
+cargo install --path .
+popd
+
+# ----------------------------
 # Extra packages
 # ----------------------------
 read -l -P "Install extra packages? (y/N): " custom_choice
